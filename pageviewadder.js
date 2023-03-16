@@ -83,6 +83,6 @@ async function proccessItems(startNumber, endNumber) {
     }
 }
 
-proccessItems(170837, 2999999);
+proccessItems(721200, 799999);
 
-//processed 99999 inclusive
+//processed 691000 inclusive

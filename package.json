@@ -1,1 +1,5 @@
-{}
+{
+    "scripts": {
+        "process": "node pageviewadder.js"
+    }
+}

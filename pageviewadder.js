@@ -70,7 +70,7 @@ async function proccessItems(startNumber, endNumber) {
         });
         let textToWrite = processedData.reduce((accumulator, currentValue) => accumulator + `${currentValue.name}|${currentValue.count}\n`, "");
 
-        await new Promise(resolve => fs.appendFile("titles_and_views.txt", textToWrite, resolve));
+        await new Promise(resolve => fs.appendFile("3000001-6000000.txt", textToWrite, resolve));
 
         const end = Date.now();
         const elapsed = end - start;
@@ -83,6 +83,6 @@ async function proccessItems(startNumber, endNumber) {
     }
 }
 
-proccessItems(1770500, 1999999);
+proccessItems(3000000, 3099999);
 
-//processed 949999 inclusive
+//processed inclusive

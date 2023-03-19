@@ -27,37 +27,42 @@ async function proccessItems(startNumber, endNumber) {
         fails = 0;
         
         do {
-            console.log(`Starting batch with first article ${titles[i]} (number ${i})`);
-            var batchStart = i;
-            var batchEnd = Math.min(batchStart + batchSize - 1, endNumber);
+            try {
+                console.log(`Starting batch with first article ${titles[i]} (number ${i})`);
+                var batchStart = i;
+                var batchEnd = Math.min(batchStart + batchSize - 1, endNumber);
 
-            const requests = [];
-            for (let j = batchStart; j <= batchEnd; j++) {
-                requests.push(fetch(`https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia.org/all-access/all-agents/${encode(titles[j])}/monthly/19000101/20230301`, {
-                    method: "GET"
-                }));
-            }
-
-            var start = Date.now();
-            const responses = await Promise.all(requests);
-            var data = await Promise.all(responses.map(response => response.json()));
-
-            hasFailed = false;
-            data.forEach((item, index) => {
-                if (item.items === undefined) {
-                    console.log(titles[index + batchStart]);
-                    console.log(item);
-                    if (item.type === "https://mediawiki.org/wiki/HyperSwitch/errors/request_rate_exceeded") {
-                        hasFailed = true;
-                    }
+                const requests = [];
+                for (let j = batchStart; j <= batchEnd; j++) {
+                    requests.push(fetch(`https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia.org/all-access/all-agents/${encode(titles[j])}/monthly/19000101/20230301`, {
+                        method: "GET"
+                    }));
                 }
-            });
 
-            if (hasFailed) {
-                console.log("Request rate exceeded");
-                fails++;
-                console.log(`Failure number ${fails}; waiting ${2**fails} seconds`);
-                await new Promise(resolve => setTimeout(resolve, (2**fails)*1000 )); //wait 2^fails seconds before retrying e.g. 2 seconds first, then 4 if failed again, then 8 etc.
+                var start = Date.now();
+                const responses = await Promise.all(requests);
+                var data = await Promise.all(responses.map(response => response.json()));
+
+                hasFailed = false;
+                data.forEach((item, index) => {
+                    if (item.items === undefined) {
+                        console.log(titles[index + batchStart]);
+                        console.log(item);
+                        if (item.type === "https://mediawiki.org/wiki/HyperSwitch/errors/request_rate_exceeded") {
+                            hasFailed = true;
+                        }
+                    }
+                });
+
+                if (hasFailed) {
+                    console.log("Request rate exceeded");
+                    fails++;
+                    console.log(`Failure number ${fails}; waiting ${2**fails} seconds`);
+                    await new Promise(resolve => setTimeout(resolve, (2**fails)*1000 )); //wait 2^fails seconds before retrying e.g. 2 seconds first, then 4 if failed again, then 8 etc.
+                }
+            } catch (error) {
+                console.log(error);
+                hasFailed = true;
             }
         } while (hasFailed);
         
@@ -83,6 +88,6 @@ async function proccessItems(startNumber, endNumber) {
     }
 }
 
-proccessItems(5000000, 5499999);
+proccessItems(5597300, 5999999);
 
 //processed inclusive

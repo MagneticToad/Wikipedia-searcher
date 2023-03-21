@@ -1,3 +1,35 @@
+//edit here
+const runCount = 4; //increment this
+//
+
+
+const batchStart = 7500000 + (500000 * runCount);
+const batchEnd = batchStart + 499999;
+
+let outFile;
+switch (batchStart) {
+    case 8000000:
+    case 8500000:
+        outFile = "6000001-9000000.txt";
+        break;
+    case 9000000:
+    case 9500000:
+    case 10000000:
+    case 10500000:
+    case 11000000:
+    case 11500000:
+        outFile = "9000001-12000000.txt";
+        break;
+    case 12000000:
+    case 12500000:
+    case 13000000:
+    case 13500000:
+    case 14000000:
+    case 14500000:
+        outFile = "12000001-15000000.txt";
+        break;
+}
+
 const fs = require('fs');
 
 function encode(string) {
@@ -75,7 +107,7 @@ async function proccessItems(startNumber, endNumber) {
         });
         let textToWrite = processedData.reduce((accumulator, currentValue) => accumulator + `${currentValue.name}|${currentValue.count}\n`, "");
 
-        await new Promise(resolve => fs.appendFile("6000001-9000000.txt", textToWrite, resolve));
+        await new Promise(resolve => fs.appendFile(outFile, textToWrite, resolve));
 
         const end = Date.now();
         const elapsed = end - start;
@@ -88,6 +120,6 @@ async function proccessItems(startNumber, endNumber) {
     }
 }
 
-proccessItems(7500000, 7999999);
+proccessItems(batchStart, batchEnd);
 
 //processed inclusive

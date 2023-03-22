@@ -1,5 +1,5 @@
 //edit here
-const runCount = 4; //increment this
+const runCount = 5; //increment this
 //
 
 
@@ -28,6 +28,13 @@ switch (batchStart) {
     case 14500000:
         outFile = "12000001-15000000.txt";
         break;
+    case 15000000:
+    case 15500000:
+    case 16000000:
+    case 16500000:
+    case 17000000:
+    case 17500000:
+            outFile = "15000001-18000000.txt";
 }
 
 const fs = require('fs');

@@ -1,9 +1,9 @@
 //edit here
-const runCount = 8; //increment this
+const runCount = 2; //increment this
 //
 
 
-const batchStart = 7500000 + (500000 * runCount);
+const batchStart = 14500000 + (500000 * runCount);
 const batchEnd = batchStart + 499999;
 
 let outFile;
@@ -47,6 +47,10 @@ function encode(string) {
     encoded = encoded.replace(/\)/g, "%29");
     encoded = encoded.replace(/\'/g, "%27");
     return encoded;
+}
+
+for (let i = 0; i < 5; i++) {
+    console.log(`Running batch count ${runCount}; if this is not intended, press Control + C to stop, or close this window!`);
 }
 
 console.log("Loading titles into memory");

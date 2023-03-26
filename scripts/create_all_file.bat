@@ -1,0 +1,1 @@
+type "..\data\titles_and_views_1-3000000.txt" "..\data\titles_and_views_3000001-6000000.txt" "..\data\titles_and_views_6000001-9000000.txt" "..\data\titles_and_views_9000001-12000000.txt" "..\data\titles_and_views_12000001-15000000.txt" "..\data\titles_and_views_15000001-18000000.txt" > "..\data\titles_and_views_all.txt"

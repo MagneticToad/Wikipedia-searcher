@@ -5,7 +5,7 @@ from collections import defaultdict
 # Read the file into memory
 print("Reading...")
 
-with open("1-12000000.txt", "r", encoding="utf-8") as file:
+with open("titles_and_views.txt", "r", encoding="utf-8") as file:
     lines = file.readlines()
 
 # Initialize defaultdict to store article names and views

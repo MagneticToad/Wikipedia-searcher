@@ -1,42 +1,3 @@
-//edit here
-const runCount = 2; //increment this
-//
-
-
-const batchStart = 14500000 + (500000 * runCount);
-const batchEnd = batchStart + 499999;
-
-let outFile;
-switch (batchStart) {
-    case 8000000:
-    case 8500000:
-        outFile = "6000001-9000000.txt";
-        break;
-    case 9000000:
-    case 9500000:
-    case 10000000:
-    case 10500000:
-    case 11000000:
-    case 11500000:
-        outFile = "9000001-12000000.txt";
-        break;
-    case 12000000:
-    case 12500000:
-    case 13000000:
-    case 13500000:
-    case 14000000:
-    case 14500000:
-        outFile = "12000001-15000000.txt";
-        break;
-    case 15000000:
-    case 15500000:
-    case 16000000:
-    case 16500000:
-    case 17000000:
-    case 17500000:
-            outFile = "15000001-18000000.txt";
-}
-
 const fs = require('fs');
 
 function encode(string) {
@@ -47,10 +8,6 @@ function encode(string) {
     encoded = encoded.replace(/\)/g, "%29");
     encoded = encoded.replace(/\'/g, "%27");
     return encoded;
-}
-
-for (let i = 0; i < 5; i++) {
-    console.log(`Running batch count ${runCount}; if this is not intended, press Control + C to stop, or close this window!`);
 }
 
 console.log("Loading titles into memory");
@@ -118,7 +75,7 @@ async function proccessItems(startNumber, endNumber) {
         });
         let textToWrite = processedData.reduce((accumulator, currentValue) => accumulator + `${currentValue.name}|${currentValue.count}\n`, "");
 
-        await new Promise(resolve => fs.appendFile(outFile, textToWrite, resolve));
+        await new Promise(resolve => fs.appendFile("15000001-18000000.txt", textToWrite, resolve));
 
         const end = Date.now();
         const elapsed = end - start;
@@ -131,6 +88,6 @@ async function proccessItems(startNumber, endNumber) {
     }
 }
 
-proccessItems(batchStart, batchEnd);
+proccessItems(17000000, 17083499);
 
 //processed inclusive

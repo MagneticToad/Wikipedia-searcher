@@ -3,6 +3,7 @@ package main
 import (
     "bufio"
     "fmt"
+    "io/ioutil"
 	"os"
     "os/exec"
     "regexp"
@@ -18,15 +19,37 @@ type article struct {
 }
 
 func main() {
-    // read the file into memory
-    fmt.Println("Reading file...")
-    start := time.Now()
-    file, err := os.Open("../data/titles_and_views_greater_than_10000.txt")
-    if err != nil {
-        fmt.Println("Error opening file:", err)
-        return
-    }
-    defer file.Close()
+    // list all files in the directory
+	files, err := ioutil.ReadDir("../data/")
+	if err != nil {
+		fmt.Println("Error reading directory:", err)
+		return
+	}
+
+	// print the list of files and their associated index
+	fmt.Println("List of files:")
+	for i, f := range files {
+		fmt.Printf("[%d] %s\n", i, f.Name())
+	}
+
+	// prompt the user for an index
+	var index int
+	fmt.Print("Enter the index of the file to read: ")
+	_, err = fmt.Scanln(&index)
+	if err != nil {
+		fmt.Println("Error reading input:", err)
+		return
+	}
+
+	// read the selected file into memory
+	fmt.Printf("Reading file %s...\n", files[index].Name())
+	start := time.Now()
+	file, err := os.Open("../data/" + files[index].Name())
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer file.Close()
 
     var allArticles []article
     

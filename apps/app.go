@@ -121,7 +121,11 @@ func main() {
             fmt.Printf("%-*s | Views\n", maxTitleLen, "Title")
             fmt.Println(strings.Repeat("-", maxTitleLen+9))
             for _, a := range articles {
-                fmt.Printf("%-*s | %d\n", maxTitleLen, a.title, a.views)
+                formattedViews := strconv.FormatInt(int64(a.views), 10)
+                for i := len(formattedViews) - 3; i > 0; i -= 3 {
+                    formattedViews = formattedViews[:i] + "," + formattedViews[i:]
+                }
+                fmt.Printf("%-*s | %s\n", maxTitleLen, a.title, formattedViews)
             }
         }
 
